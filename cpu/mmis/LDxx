@@ -1,0 +1,97 @@
+#!/bin/bash
+
+###############################################
+#
+#   MMIX COMMON IMPLEMENTATION OF LD INSTRUCTION.
+#
+###############################################
+
+
+#
+# Get the parameters for this instruction
+#
+
+SIGN=$1  # SIGN
+ADDR=$2  # ADDRESS
+IregIndex=$3  # 
+FLAG=$4
+DATA=
+#
+##DESIRED RANGE OF ONE DATA CELL
+L=`common/parseF $F L`
+R=`common/parseF $F R`
+
+##
+## TODO: CHECK THE PARAMETERS VALUE.
+##
+#        SIGN
+#        ADDRESS
+#        I
+#        F
+#check_params(){
+#}
+
+#Get Data Address of LD src 
+get_address()
+{
+	if [ $IregIndex != 0 ];
+	then
+		#Get the I$I register contents
+		rIx4=`cat $CPU_REG_BASE/I$IregIndex/I$I4`
+		rIx5=`cat $CPU_REG_BASE/I$IregIndex/I$I5`
+		rflg=`cat $CPU_REG_BASE/I$IregIndex/flag`
+		Ival=$rflg$rIx4$rIx5
+		if [ $SIGN -eq 00 ]; then
+			ADDR=`expr $(($(($Ival))+$ADDR))`
+		else
+			ADDR=`expr $(($(($Ival))-$ADDR))`
+		fi
+	fi
+}
+
+#Get Data from the Address of LD src 
+MEMDATA=
+load_mem_data()
+{
+
+	# Scan the ADDRESS in MEMORY
+	if [ -f $MEM_BASE/$ADDR ];
+	then
+		echo "LOAD THE DATA FROM $ADDR ."
+		
+		#Get reg content from source address.
+		MEMDATA=`cat $MEM_BASE/$ADDR`
+	else
+		echo "NOT A VALID ADDRESS."
+		exit 1
+	fi
+
+}
+# Copy the flag to target register if desired.
+get_flag()
+{
+	if [ $L -eq 0 ]; then
+		echo $MEMDATA | cut -c 1-2 > "$CPU_REG_BASE/A/flag"
+		L=`expr $(($L+1))`
+	fi
+}
+
+
+# Get the desired range of data.
+do_lda()
+{
+	echo "LOAD THE DATA FROM $ADDR ."
+	
+	if [ $FLAG == 0 ]; then
+		exit 0;
+	else
+		#Calucate the length and get the desired part from the memdata.
+		f=`expr $((($L+1)*2 - 1))`
+		e=`expr $((($R+1)*2))`
+		DATA=`echo $MEMDATA | cut -c $f-$e`
+	fi
+}
+
+
+
+
