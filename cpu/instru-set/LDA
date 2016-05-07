@@ -1,0 +1,49 @@
+#!/bin/bash
+
+
+
+
+###############################################
+#
+#   MMIX LDA INSTRUCTION.
+#
+###############################################
+
+
+#
+# Get the parameters for this instruction
+#
+
+S=$1  # SIGN
+A=$2  # ADDRESS
+I=$3  # 
+F=$4
+
+L=`common/parseF $F L`
+R=`common/parseF $F R`
+
+##
+## TODO: CHECK THE PARAMETERS VALUE.
+##
+#        SIGN
+#        ADDRESS
+#        I
+#        F
+
+
+# Scan the ADDRESS in MEMORY
+
+if [ -f $MEM_BASE/$A ];
+then
+	do_lda 
+else
+	echo "NOT A VALID ADDRESS."
+fi
+
+function do_lda()
+{
+	echo "LOAD THE DATA FROM $A ."
+	memdata=`cat $MEM_BASE/$A`
+	
+
+}

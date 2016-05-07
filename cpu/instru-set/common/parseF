@@ -1,0 +1,17 @@
+#!/bin/bash
+
+F=$1
+isL=$2
+
+# FORMULA  (L:R) 8L+R
+R=`expr $F % 8`
+L=`expr $F / 8`
+
+if [ $isL == 'L' ];
+then
+	echo $L
+else
+	echo $R
+fi
+
+exit 0

@@ -1,0 +1,11 @@
+#!/bin/bash
+export MMIX_BASE=`pwd`
+# CPU
+export CPU_BASE=$MMIX_BASE/cpu
+export CPU_REG_BASE=$CPU_BASE/register
+export CPU_INST_BASE=$CPU_BASE/instru-set
+#MEMORY
+export MEM_BASE=$MMIX_BASE/mem
+#DISK
+export DISK_BASE=$MMIX_BASE/disk
+
