@@ -1,0 +1,27 @@
+#!/bin/bash
+###################################
+#
+#
+#
+###################################
+
+
+ADDR=$1
+
+
+#if the address was not existed .  return error.
+
+if [ !-f $MEM_DIR/ADDR ] ; then
+
+	echo "THE ADDRESS OVER RANGED!!"
+	exit 1
+
+fi
+
+# Read the command 
+
+line=`cat $MEM_DIR/ADDR`
+
+# Find the right command and execute it.
+i-router $line
+

@@ -1,0 +1,78 @@
+#!/bin/bash
+
+###############################################
+#
+#   MMIX LDA INSTRUCTION.
+#
+###############################################
+
+
+#
+# Get the parameters for this instruction
+#
+
+
+cmd=$1
+
+#
+#Parse the LDA instruction.
+#
+
+sign=`echo $cmd | cut -c 1-2`		# sign
+addr=`echo $cmd | cut -c 3-6`		# addrESS
+IregIdx=`echo $cmd | cut -c 7-8`	# Ix index 
+flag=`echo $cmd | cut -c 9-10`		# flag
+
+lmost=`parse-flag $flag L`
+rmost=`parse-flag $flag R`
+echo " lmost=$lmost"
+
+main()
+{
+	echo "lda: load data from $addr ."
+
+	echo "get-address sign=$sign ireg=$IregIdx addr=$addr"
+
+	addr=`get-address $sign $IregIdx $addr`
+	addr=`format-address $addr`
+	
+	if [ ! -f "$MEM_BASE/$addr" ];then
+		echo "lda: ERROR ! (not a valid addressi \"$addr\", load memory failed ) "
+		exit 1
+	fi
+
+	mdata=`cat $MEM_BASE/$addr`
+
+	if [ $flag == "00" ];then
+		echo "lda: ERROR ! (no data will be loaded. \"$addr\" ) "
+		exit 0;
+	fi	
+        	
+	fG=`echo $mdata | cut -c 1-2`
+	c1=`echo $mdata | cut -c 3-4`    
+	c2=`echo $mdata | cut -c 5-6`    
+	c3=`echo $mdata | cut -c 7-8`    
+	c4=`echo $mdata | cut -c 9-10`    
+	c5=`echo $mdata | cut -c 11-12`
+
+	echo "lmost=$lmost"	
+
+	if [ $lmost -eq 0 ]; then 
+		echo $fG | tee $REG_AF
+	fi
+
+	i=$lmost
+	ai=5
+	while [ $i -le $rmost ]
+	do
+		echo $c$i | tee $REG_A$ai
+		ai=`expr $(($ai-1))`
+		i=`expr $(($i+1))`
+	done
+}
+
+
+main
+
+
+

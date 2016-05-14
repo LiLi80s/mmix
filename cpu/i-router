@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Receive the command string.
+cmd=$1
+opbyte=`echo cmd | cut -c 11-12`
+
+case $opbyte in
+	"08")
+		lda $cmd
+	;;
+	"*")
+		echo "Not support right now. "
+esac
+
+

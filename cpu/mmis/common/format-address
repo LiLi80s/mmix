@@ -1,0 +1,22 @@
+#!/bin/bash
+
+origaddr=$1
+origaddrlen=${#origaddr}
+template="0000"
+templatelen=${#template}
+
+if [ $origaddrlen -gt $templatelen ]; then
+	echo "format-address : ERROR (the string is to long)."
+	exit 1
+fi
+
+to=`expr $(($templatelen-$origaddrlen))`
+if [ $to -eq 0 ]; then
+	echo $origaddr
+	exit 0
+fi
+
+addr=`echo $template | cut -c 1-$to | sed -e 's/$/'"$origaddr"'/g'`
+echo $addr
+
+

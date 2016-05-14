@@ -2,10 +2,34 @@
 export MMIX_BASE=`pwd`
 # CPU
 export CPU_BASE=$MMIX_BASE/cpu
-export CPU_REG_BASE=$CPU_BASE/register
-export CPU_INST_BASE=$CPU_BASE/instru-set
+
 #MEMORY
 export MEM_BASE=$MMIX_BASE/mem
 #DISK
 export DISK_BASE=$MMIX_BASE/disk
+
+# register
+
+export CPU_REG_BASE=$CPU_BASE/register
+export CPU_SR_REG_BASE=$CPU_BASE/register/sr
+export REG_A_BASE=$CPU_REG_BASE/A
+export REG_A1=$REG_A_BASE/A1
+export REG_A2=$REG_A_BASE/A2
+export REG_A3=$REG_A_BASE/A3
+export REG_A4=$REG_A_BASE/A4
+export REG_A5=$REG_A_BASE/A5
+export REG_AF=$REG_A_BASE/flag
+
+export REG_X_BASE=$CPU_REG_BASE/X
+export REG_X1=$REG_X_BASE/X1
+export REG_X2=$REG_X_BASE/X2
+export REG_X3=$REG_X_BASE/X3
+export REG_X4=$REG_X_BASE/X4
+export REG_X5=$REG_X_BASE/X5
+export REG_XF=$REG_X_BASE/flag
+
+# instruction
+export MMIS_BASE=$CPU_BASE/mmis
+export MMIS_BASE_COMM=$MMIS_BASE/common
+export PATH=$PATH:$MMIS_BASE:$MMIX_BASE:$CPU_BASE:$MMIS_BASE_COMM
 

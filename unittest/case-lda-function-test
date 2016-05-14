@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#
+#
+#
+#
+
+# STEP 1 : write the date to the memory address
+
+tgtaddr="0015"
+echo 010203040506 | tee $MEM_BASE/$tgtaddr
+
+echo `cat $MEM_BASE/$tgtaddr`
+
+# STEP 2 : Make the command string
+f="00"
+flag="05"
+Ireg="00"
+addr=$tgtaddr
+opt="08"
+
+cmd=${f}${addr}${Ireg}${flag}${opt}
+
+echo `cat $REG_A1`
+echo `cat $REG_A2`
+echo `cat $REG_A3`
+echo `cat $REG_A4`
+echo `cat $REG_A5`
+echo `cat $REG_AF`
+
+echo "i-router $cmd"
+
+i-router $cmd
+
+echo "show result:"
+
+echo `cat $REG_A1`
+echo `cat $REG_A2`
+echo `cat $REG_A3`
+echo `cat $REG_A4`
+echo `cat $REG_A5`
+echo `cat $REG_AF`

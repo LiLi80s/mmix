@@ -1,0 +1,8 @@
+#!/bin/bash
+
+addr=`cat $CPU_SR_REG_BASE/IP`
+while true 
+do
+	i-loader $addr
+	addr=`cat $CPU_SR_REG_BASE/IP`
+done

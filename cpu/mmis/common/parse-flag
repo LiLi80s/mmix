@@ -4,6 +4,9 @@ F=$1
 isL=$2
 
 # FORMULA  (L:R) 8L+R
+
+F=$((num=16#${F}))
+
 R=`expr $F % 8`
 L=`expr $F / 8`
 

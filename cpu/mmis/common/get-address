@@ -1,0 +1,27 @@
+#!/bin/bash
+
+sign=$1
+rIIdx=$2
+AA=$3
+
+if [ $rIIdx -eq 00 ]; then
+	echo $AA
+	exit 0
+fi
+
+#Get the I$I register contents
+rIx4=`cat $CPU_REG_BASE/I$rIIdx/I${rIIdx}4`
+rIx5=`cat $CPU_REG_BASE/I$rIIdx/I${rIIdx}5`
+rflg=`cat $CPU_REG_BASE/I$rIIdx/flag`
+
+#ignore the flag temprority.
+Ival=$rIx4$rIx5
+
+if [ $sign -eq 00 ]; then
+	addr=`expr $(($((num=16#${Ival}))+${AA}))`
+else
+	addr=`expr $(($((num=16#${Ival}))-${AA}))`
+fi
+
+echo "obase=16;${addr}"|bc
+
