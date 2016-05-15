@@ -5,7 +5,7 @@ rIIdx=$2
 AA=$3
 
 if [ $rIIdx -eq 00 ]; then
-	echo $AA
+	MMIX-RETURN $0 $AA
 	exit 0
 fi
 
@@ -23,5 +23,5 @@ else
 	addr=`expr $(($((num=16#${Ival}))-${AA}))`
 fi
 
-echo "obase=16;${addr}"|bc
+MMIX-RETURN $0 `echo "obase=16;${addr}"|bc`
 

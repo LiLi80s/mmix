@@ -1,0 +1,3 @@
+#!/bin/bash
+retstr=`$1`
+echo $retstr | grep CALLER.*RETURN | sed -e 's/CALLER(\(.*\)).*RETURN(\(.*\))/\2/g'

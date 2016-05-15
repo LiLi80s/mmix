@@ -1,0 +1,7 @@
+#!/bin/bash
+
+module=$1
+instruction=$2
+level=$3
+string=$4
+echo "$module:$level($string)" >> $LOG/mmix-debug.log

@@ -45,7 +45,7 @@ main()
 
 	if [ $flag == "00" ];then
 		echo "lda: ERROR ! (no data will be loaded. \"$addr\" ) "
-		exit 0;
+		exit 1;
 	fi	
         	
 	fG=`echo $mdata | cut -c 1-2`
@@ -54,8 +54,6 @@ main()
 	c3=`echo $mdata | cut -c 7-8`    
 	c4=`echo $mdata | cut -c 9-10`    
 	c5=`echo $mdata | cut -c 11-12`
-
-	echo "lmost=$lmost"	
 
 	if [ $lmost -eq 0 ]; then 
 		echo $fG | tee $REG_AF

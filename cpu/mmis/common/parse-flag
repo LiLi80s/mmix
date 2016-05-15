@@ -12,9 +12,7 @@ L=`expr $F / 8`
 
 if [ $isL == 'L' ];
 then
-	echo $L
-else
-	echo $R
+	MMIX-RETURN $0 $L
+	exit 0
 fi
-
-exit 0
+MMIX-RETURN $0 $R

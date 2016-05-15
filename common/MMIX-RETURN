@@ -1,0 +1,6 @@
+#!/bin/bash
+
+caller=$1
+val=$2
+
+echo "CALLER(${caller}):RETURN($val)"
